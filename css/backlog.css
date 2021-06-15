@@ -1,0 +1,79 @@
+.backlog-container {
+}
+
+.assigne-info img {
+    width: 50px;
+    height: 50px;
+}
+
+.task-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--card-color);
+    height: var(--task-card-height);
+    /* overflow: hidden; */
+    /* box-sizing: content-box; */
+    /* border-left: 10px solid orange; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.assigne-info {
+    display: flex;
+    align-items: center;
+    /* flex-grow: 1; */
+    min-width: 300px;
+    justify-content: space-evenly;
+}
+
+.section-assigne {
+    /* flex-grow: 1; */
+
+    min-width: calc(300px + 10px + 10px);
+}
+
+.task-details {
+    width: 45%;
+    max-height: 100%;
+    overflow-y: clip;
+}
+
+.section-details {
+    width: 45%;
+    text-align: right;
+}
+
+.task-category {
+    text-align: center;
+    min-width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.section-category {
+    min-width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.task-sections-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 600px){
+    .assignment-name-mail{
+        display: none;
+    }
+    .assigne-info{
+        min-width: 100px;
+    }
+
+    .section-assigne{
+        min-width: calc(100px + 10px + 10px);
+    }
+}

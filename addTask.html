@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+   
+    <link rel="stylesheet" href="css/overall.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/addTask.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
+    <script src="js/overall.js"></script>
+    <script src="js/addTask.js"></script>
+</head>
+
+<body onload="init()">
+    <div class="nav-bar-holder" w3-include-html="templates/navbar.html"></div>
+    <div class="main">
+        <div class="main-title">
+            <h1 class="title">Add Task</h1>
+            <span class="untertitle text-main">Learning Managment System Project</span>
+        </div>
+        <div class="addtask-container">
+            <form onsubmit="return createTask(event, this);" action="">
+                <div class="addtask-section">
+                    <div class="addtask-field">
+                        <label for="title">TITLE</label>
+                        <input id="title-field" name="title" type="text" class="task-field-data" required>
+                    </div>
+                    <div class="addtask-field">
+                        <label for="category">CATEGORY</label>
+                        <select name="category" id="category-field" class="task-field-data" required>
+                            <option disabled selected value="">Please Select a Category</option>
+                            <option value="Managment">Managment</option>
+                            <option value="Sales">Sales</option>
+                            <option value="IT">IT</option>
+                            <option value="Custom">Custom</option>
+                            <option value="Private">Private</option>
+                        </select>
+                    </div>
+                    <div class="addtask-field">
+                        <label for="description">DESCRIPTION</label>
+                        <textarea name="description" id="description-field" cols="30" rows="10"
+                            class="task-field-data"></textarea>
+                    </div>
+                </div>
+                <div class="addtask-section">
+                    <div class="addtask-field">
+                        <label for="date">Due Date</label>
+                        <input required type="date" name="date" id="date-field" class="task-field-data">
+                    </div>
+                    <div class="addtask-field">
+                        <label for="urgency">URGENCY</label>
+                        <select name="urgency" id="urgency-field" class="task-field-data">
+                            <option disabled selected value="">Please Select urgency</option>
+                            <option value="high">HIGH</option>
+                            <option value="middle">MIDDLE</option>
+                            <option value="low">LOW</option>
+                        </select>
+                    </div>
+                    <div class="addtask-field">
+                        <label for="assignes">ASSIGNED TO</label>
+                        <div id="assignes-field" name="assignes" class="task-field-data">
+                            <div class="selected-users-container">
+                                <div id="selected-users-list">
+                                    <!-- <img class="border-box-circle selected-user" src="assets/img/profile.png"> -->
+                                </div>
+                                
+                                <img title="Show Members List" id="add-user" onclick="openDialog('members-list-dialog'); showUnselectedMembers();" src="assets/img/icon plus.png" alt="Show Members List">
+                            </div>
+                            <div id="submit-container">
+                                <button id="cancel-task">CANCEL</button>
+                                <button type="submit" id="create-task">CREATE TASK</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div id="fixed-elements-container">
+        <div id="members-list-dialog" onclick="closeDialogByRef(this)" class="dialog">
+            <div onclick="event.stopPropagation();" class="dialog-container">
+                <div id="members-list">
+    
+                </div>
+            </div>
+        </div>
+
+        <div id="feedback-taskcreated" class="feedback-card">
+            <span id="feedback-message" class="feedback-message">Task created!</span>
+        </div>
+    </div>
+    
+</body>
+
+</html>

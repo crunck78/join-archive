@@ -1,0 +1,261 @@
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
+:root{
+    --main-color: #1E3190;
+    --card-color: #F4F3FB;
+    --card-radius: 16px;
+    --card-padding: 32px;
+    --navbar-padding-desktop: 30px;
+    --navbar-padding-mobile: 16px;
+    --navbar-size-desktop: 150px;
+    --navbar-size-mobile: 100px;
+    --opacity-hover: 0.8;
+    --fields-border-style:  1px solid rgb(179, 179, 179);
+    --fields-padding: 10px;
+    --task-card-height: 80px;
+}
+
+body{
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+    -webkit-text-stroke-width: thin;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.main{
+    padding: var(--navbar-padding-desktop);
+    /* flex-grow: 1; */
+    position: fixed;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.main-title{
+    margin-bottom: 32px;
+}
+
+.main-title .title{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.border-box-white{
+    border: 3px solid white;
+}
+
+.border-box-circle{
+    border-radius: 100%;
+}
+
+.position-relative{
+    position: relative;
+}
+
+@media (min-width: 1000px){
+    /* body{
+        flex-direction: row;
+    } */
+
+    .main{
+        left: var(--navbar-size-desktop);
+        padding: var(--navbar-padding-desktop);
+        height: 100vh;
+    }
+}
+
+@media (max-width: 1000px){
+    /* body{
+        flex-direction: column;
+    } */
+
+    .main{
+        left: 0;
+        padding: var(--navbar-padding-mobile);
+        height: calc(100vh - var(--navbar-size-mobile));
+        top: var(--navbar-size-mobile);
+    }
+}
+
+.text-main{
+    color: var(--main-color);
+}
+
+.text-bold{
+    font-weight: 800;
+}
+
+.mt-32{
+    margin-top: 32px;
+}
+
+.flex-col{
+    display: flex;
+    flex-direction: column;
+}
+
+.addtask-container, .backlog-container, .board-container, .index-container, .help-container{
+    /* flex-grow: 1; */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.fixed-elements-container{
+
+}
+
+.dialog{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+}
+
+.dialog-container{
+    /* background-color: var(--card-color); */
+    background-color: #F4F3FB;
+    padding: var(--card-padding);
+    border-radius: var(--card-radius);
+    /* flex-grow: 0.8; */
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.feedback-card{
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    width: fit-content;
+    background-color: var(--card-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-radius);
+    border: var(--fields-border-style);
+
+    /* transition: all 225ms ease-in-out; */
+    /* animation: showfeedback 225ms ease-in-out; */
+}
+
+
+/* @keyframes showfeedback {
+    from{
+        width: 0;
+    }
+
+    to{
+        width: unset;
+    }
+} */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+  #add-user:hover, 
+  #add-list:hover, 
+  .remove-selected:hover, 
+  .list-content>div:last-child:hover {
+    opacity: var(--opacity-hover);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.remove-selected{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.member-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    max-width: 300px;
+    background-color: var(--card-color);
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    padding: 24px;
+
+    border-radius: 12px;
+
+    border: 1px solid gray;
+}
+
+.member-info:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.member-info img{
+    width: 30px;
+    height: 30px;
+}
+
+.d-none{
+    display: none;
+}
+
+.empty-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide-mobile{
+    display: unset;
+}
+
+.hide-desktop{
+    display: none;
+}
+
+@media (max-width: 600px){
+    .hide-mobile{
+        display: none !important;
+    }
+    
+    .hide-desktop{
+        display: unset;
+    }
+}
