@@ -2,6 +2,7 @@ let lists;
 
 function init() {
     includeHTML();
+    initNavBar();
     tasks = getTasks();
     lists = getLists();
     setListContainerHTML();
@@ -23,24 +24,25 @@ function generateListHTML(list) {
     `;
 }
 
-function getTitleInputDisplay(title){
-    return title? "d-none" : "";
+function getTitleInputDisplay(title) {
+    return title ? "d-none" : "";
 }
 
-function showTitleInput(id){
+function showTitleInput(id) {
     document.getElementById(id).classList.remove("d-none");
+    document.getElementById(id).focus();
 }
 
-function setTitle(event, inputRef, listIndex){
+function setTitle(event, inputRef, listIndex) {
     const list = lists[listIndex];
-    list.title = inputRef.value;
-    document.getElementById(`list-title${listIndex}`).innerHTML = list.title;
-    saveLists();
-    inputRef.classList.add("d-none");
-}
+    inputRef.value = inputRef.value.trim();
+    if(inputRef.value){
+        list.title = inputRef.value;
+        document.getElementById(`list-title${listIndex}`).innerHTML = list.title;
+        saveLists();
+        inputRef.classList.add("d-none");
 
-function updateListTitle(inputRef, listIndex){
-   
+    } 
 }
 
 function selectTaskDialog(listIndex) {
@@ -74,9 +76,21 @@ function generateListHeadHTML(list) {
     `;
 }
 
+function dragging(elemRef, dragEvent) {
+    console.log(dragEvent);
+}
+
+function setDragged(ticketId) {
+    dragged = ticketId;
+}
+
+function setOverDragged(listId) {
+    currentOverDragged = listId;
+}
+
 function generateTicketHTML(ticket) {
     return `
-    <div class="ticket">
+    <div draggable="true" ondragstart="startDrag(event, this)" ondragend="endDrag(event, this)" class="ticket">
         <div>
             <span class="ticket-name">${ticket.ref.title}</span>
             <span class="ticket-name">${ticket.ref.id}</span>
@@ -87,7 +101,15 @@ function generateTicketHTML(ticket) {
     `;
 }
 
-function generateTicketAssignmentsHTML(assignment){
+function endDrag(event, elemRef){
+    elemRef.classList.remove("dragged");
+}
+
+function startDrag(event, elemRef){
+    elemRef.classList.add("dragged");
+}
+
+function generateTicketAssignmentsHTML(assignment) {
     return `<img class="assignment-img" src="${assignment.ref.img}">`;
 }
 

@@ -2,6 +2,7 @@ let assignments = [];
 
 function init(){
     includeHTML();
+    initNavBar();
     tasks = getTasks();
     setAssignments();
     fillContainer("", "assignments-list", assignments, generateAssignment);

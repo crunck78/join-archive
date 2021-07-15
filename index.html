@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <link rel="stylesheet" href="css/overall.css">
+    <link rel="stylesheet" href="css/join.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/index.css"></link>
+    <link rel="stylesheet" href="css/index.css">
+    </link>
     <script src="js/overall.js"></script>
+    <script src="js/join.js"></script>
+    <script src="js/index.js"></script>
 </head>
-<body onload="includeHTML()">
+
+<body onload="init()">
     <div w3-include-html="templates/navbar.html"></div>
+
+    <div class="main">
+        <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+         <div class="main-title">
+            <h1 class="title">Welcome to JOIN</h1>
+            <span class="untertitle text-main">Learning Managment System Project</span>
+        </div>
+        <div class="index-container">
+            <div id="firebaseui-auth-container"></div>
+        </div>
+    </div>
+
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+
+    <script src="js/firebase.js"></script>
+    <script type="text/javascript" src="js/firebase-ui.js"></script>
 </body>
+
 </html>

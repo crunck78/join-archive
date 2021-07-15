@@ -1,4 +1,4 @@
-.main{
+.main {
     /* justify-content: space-between !important; */
 }
 
@@ -83,15 +83,21 @@ textarea[name="description"] {
     transform: scale(1.1);
 }
 
-#selected-users-list{
+#selected-users-list {
     /* position: relative; */
-    display: flex;  
+    display: flex;
 }
 
 #cancel-task {
     color: var(--main-color);
     font-weight: 800;
 }
+
+/* #create-task:disabled {
+    cursor: not-allowed;
+    background-color: initial;
+    color: var(--main-color);
+} */
 
 #create-task {
     color: white;
@@ -152,18 +158,18 @@ select {
     }
 }
 
-@media (min-width: 600px){
-    form .addtask-section:first-child{
+@media (min-width: 600px) {
+    form .addtask-section:first-child {
         margin-right: 10px;
     }
 
-    form .addtask-section:last-child{
+    form .addtask-section:last-child {
         margin-left: 10px;
     }
 }
 
-@media (max-width: 400px){
-    .task-field-data{
+@media (max-width: 400px) {
+    .task-field-data {
         width: 260px;
     }
 }

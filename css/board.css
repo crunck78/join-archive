@@ -82,3 +82,7 @@
     bottom: 40px;
     right: 40px;
 }
+
+.dragged{
+    opacity: 0.8;
+}

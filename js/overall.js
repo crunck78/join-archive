@@ -1,39 +1,3 @@
-let tasks = [];
-const users = [
-  {
-    id: 0,
-    name: "Mihai A. Neacsu",
-    email: "crunck78@googlemail.com",
-    img: "assets/img/profile.png"
-  },
-  {
-    id: 1,
-    name: "Mihai A. Neacsu",
-    email: "crunck78@googlemail.com",
-    img: "assets/img/profile.png"
-  },
-  {
-    id: 2,
-    name: "Mihai A. Neacsu",
-    email: "crunck78@googlemail.com",
-    img: "assets/img/profile.png"
-  },
-  {
-    id: 3,
-    name: "Mihai A. Neacsu",
-    email: "crunck78@googlemail.com",
-    img: "assets/img/profile.png"
-  }
-];
-
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function getTasks() {
-  return JSON.parse(localStorage.getItem("tasks")) || [];
-}
-
 function showFeedback(id) {
   document.getElementById(id).style.display = "flex";
 }
@@ -60,9 +24,8 @@ function fillContainer(title = "", id, array, toGenerate, data) {
   if (array.length > 0)
     array.forEach((elem, index) => container.insertAdjacentHTML("beforeend", toGenerate({ ref: elem, index: index, data: data })));
   else {
-    container.innerHTML = `<div class="empty-container">NOTHING TO SHOW</div>`;
+    container.innerHTML = `<div class="empty-container"></div>`;
   }
-
 }
 
 function getElementById(collection, id) {
@@ -73,12 +36,6 @@ function getNewIdForCollection(collection) {
   let newId = Math.floor(Math.random() * new Date().getTime());
   console.log(newId);
   return collection.some(elem => elem.id == newId) ? getNewIdForCollection(collection) : newId;
-}
-
-function setCurrentLinkSelected() {
-  const navbarLinks = Array.from(document.getElementById("links-container").childNodes);
-  const current = navbarLinks.find( navbarLink => navbarLink.baseURI == navbarLink.href);
-  current.classList.add("current-link");
 }
 
 function includeHTML() {
@@ -95,11 +52,7 @@ function includeHTML() {
       xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
-          if (this.status == 200) {
-            elmnt.innerHTML = this.responseText;
-            if(file.includes("navbar.html"))
-              setCurrentLinkSelected();
-          }
+          if (this.status == 200) { elmnt.innerHTML = this.responseText; }
           if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
           /* Remove the attribute, and call this function once more: */
           elmnt.removeAttribute("w3-include-html");

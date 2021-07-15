@@ -8,10 +8,12 @@
     <title>Add Task</title>
    
     <link rel="stylesheet" href="css/overall.css">
+    <link rel="stylesheet" href="css/join.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/addTask.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
     <script src="js/overall.js"></script>
+    <script src="js/join.js"></script>
     <script src="js/addTask.js"></script>
 </head>
 
@@ -23,7 +25,7 @@
             <span class="untertitle text-main">Learning Managment System Project</span>
         </div>
         <div class="addtask-container">
-            <form onsubmit="return createTask(event, this);" action="">
+            <form id="create-task-form" onsubmit="return createTask(event, this);" action="">
                 <div class="addtask-section">
                     <div class="addtask-field">
                         <label for="title">TITLE</label>
@@ -95,6 +97,20 @@
             <span id="feedback-message" class="feedback-message">Task created!</span>
         </div>
     </div>
+
+      <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" /> -->
+    <script src="js/firebase.js"></script>
     
 </body>
 

@@ -2,25 +2,35 @@ let selectedMembers = [];
 let unselectedMembers = [];
 
 function init() {
-    includeHTML();
-    tasks = getTasks();
-    setDateMinToToday();
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            includeHTML();
+            initNavBar();
+            setDateMinToday();
+            tasks = getTasks();
+        } else {
+            // No user is signed in.
+            window.location.assign("index.html");
+        }
+    });
+
 }
 
-function setDateMinToToday(){
+function setDateMinToday() {
     let today = new Date();
     let DD = today.getDate();
     let MM = today.getMonth() + 1;
     let YYYY = today.getFullYear();
-    if(DD < 10) DD = "0" + DD;
-    if( MM < 10) MM = "0" + MM;
+    if (DD < 10) DD = "0" + DD;
+    if (MM < 10) MM = "0" + MM;
     today = `${YYYY}-${MM}-${DD}`;
     console.log(today);
     document.getElementById("date-field").setAttribute("min", today);
 }
 
-function getHighlight(urgency){
-    switch (urgency){
+function getHighlight(urgency) {
+    switch (urgency) {
         case "low":
             return "green";
         case "middle":
@@ -39,7 +49,7 @@ function createTask(event, form) {
     let duedate = document.getElementById("date-field");
     let urgency = document.getElementById("urgency-field");
 
-    let newTask =  {
+    let newTask = {
         listed: false,
         title: title.value,
         category: category.value,
@@ -75,9 +85,9 @@ function showTaskCreatedFeedback() {
 }
 
 function showUnselectedMembers() {
-    let  unselected = users.filter( (user)=> {
+    let unselected = users.filter((user) => {
         // filter out (!) items in selectedMembers
-        return !selectedMembers.some( (selectedMember)=> {
+        return !selectedMembers.some((selectedMember) => {
             return user.id === selectedMember.id;          // assumes unique id
         });
     });
@@ -107,10 +117,10 @@ function insertMember(memberId) {
 
 function generateSelectedUserView(selectedUser) {
     return `
-    ${selectedUser.ref.id}
+   <!-- ${selectedUser.ref.id} -->
     <div style="position: relative">
         <img onclick='removeMember(${selectedUser.index})' class="remove-selected" src="assets/img/minus-5-48.png">
-        <img class="border-box-circle selected-user" src="${selectedUser.ref.img}">
+        <img title="${selectedUser.ref.name}" class="border-box-circle selected-user" src="${selectedUser.ref.img}">
     </div>
     `;
 }
