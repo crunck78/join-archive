@@ -1,3 +1,6 @@
+const MAX_IMG_SIZE = 5000000; //BYTES
+const IMG_TYPES = /\.(jfif|jpg|jpeg|png|gif|JFFIF|JPG|JPEG|PNG|GIF|webp|pdf|PDF)$/;
+
 function showFeedback(id) {
   document.getElementById(id).style.display = "flex";
 }
@@ -29,13 +32,13 @@ function fillContainer(title = "", id, array, toGenerate, data) {
 }
 
 function getElementById(collection, id) {
-  return collection.find(elem => elem.id === id);
+  return collection.find(elem => elem.uid === id);
 }
 
 function getNewIdForCollection(collection) {
   let newId = Math.floor(Math.random() * new Date().getTime());
   console.log(newId);
-  return collection.some(elem => elem.id == newId) ? getNewIdForCollection(collection) : newId;
+  return collection.some(elem => elem.uid == newId) ? getNewIdForCollection(collection) : newId;
 }
 
 function includeHTML() {

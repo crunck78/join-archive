@@ -1,9 +1,13 @@
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 .fixed-elements-container{
 
+}
+
+.vissibility-none{
+    visibility: none;
 }
 
 .dialog{

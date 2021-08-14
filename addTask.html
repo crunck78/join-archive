@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="css/overall.css">
     <link rel="stylesheet" href="css/join.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/image-processer.css">
     <link rel="stylesheet" href="css/addTask.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
     <script src="js/overall.js"></script>
     <script src="js/join.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/image-processer.js"></script>
     <script src="js/addTask.js"></script>
 </head>
 
@@ -25,7 +28,7 @@
             <span class="untertitle text-main">Learning Managment System Project</span>
         </div>
         <div class="addtask-container">
-            <form id="create-task-form" onsubmit="return createTask(event, this);" action="">
+            <form id="create-task-form" onsubmit="handleSubmit(event);" action="">
                 <div class="addtask-section">
                     <div class="addtask-field">
                         <label for="title">TITLE</label>
@@ -34,7 +37,7 @@
                     <div class="addtask-field">
                         <label for="category">CATEGORY</label>
                         <select name="category" id="category-field" class="task-field-data" required>
-                            <option disabled selected value="">Please Select a Category</option>
+                            <option hidden selected value="">Please Select a Category</option>
                             <option value="Managment">Managment</option>
                             <option value="Sales">Sales</option>
                             <option value="IT">IT</option>
@@ -55,8 +58,8 @@
                     </div>
                     <div class="addtask-field">
                         <label for="urgency">URGENCY</label>
-                        <select name="urgency" id="urgency-field" class="task-field-data">
-                            <option disabled selected value="">Please Select urgency</option>
+                        <select name="urgency" id="urgency-field" class="task-field-data" required>
+                            <option hidden selected value="">Please Select urgency</option>
                             <option value="high">HIGH</option>
                             <option value="middle">MIDDLE</option>
                             <option value="low">LOW</option>
@@ -88,7 +91,7 @@
         <div id="members-list-dialog" onclick="closeDialogByRef(this)" class="dialog">
             <div onclick="event.stopPropagation();" class="dialog-container">
                 <div id="members-list">
-    
+                   
                 </div>
             </div>
         </div>

@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="css/overall.css">
     <link rel="stylesheet" href="css/join.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/image-processer.css">
     <link rel="stylesheet" href="css/backlog.css">
     <script src="js/overall.js"></script>
     <script src="js/join.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/image-processer.js"></script>
     <script src="js/backlog.js"></script>
 </head>
 
@@ -33,6 +36,17 @@
             </div>
         </div>
     </div>
+
+     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
+    <script src="js/firebase.js"></script>
 </body>
 
 </html>

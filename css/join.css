@@ -181,10 +181,6 @@ body{
     height: 30px;
 }
 
-.d-none{
-    display: none;
-}
-
 .empty-container{
     width: 100%;
     height: 100%;

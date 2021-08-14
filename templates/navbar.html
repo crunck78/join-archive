@@ -2,12 +2,17 @@
     <div class="main-links-container">
         <a class="logo-link" href="../index.html"><img class="logo" src="assets/img/logo.png" alt=""></a>
         <!-- <img class="hide-desktop mobile-nav-opener" src="assets/img/menu-4-48.png" alt=""> -->
-        <div id="links-container" class="links-container"> 
+        <div id="links-container" class="links-container d-none"> 
             <a href="board.html">BOARD</a>
             <a href="backlog.html">BACKLOG</a>
             <a href="addTask.html">ADDTASK</a>
             <a href="help.html">HELP</a>
         </div>
     </div>
-    <img id="profile-img" class="border-box-circle border-box-white" src="assets/img/profile.png" alt="">
+    <div id="profile-logout" class="profile-logout d-none">
+        <input id="img-input" oninput="uploadImg(event)" type="file" accept="image/png, image/gif, image/jpeg" hidden/>
+        <img onclick="openChooseFileWindow()" id="profile-img" class="border-box-circle border-box-white" src="assets/img/profile.png" alt="">
+        <button onclick="singOut()" id="logout-btn">LOG OUT</button>
+    </div>
 </nav>
+<div class="holder" w3-include-html="templates/image-processer.html"></div>
