@@ -1,23 +1,27 @@
-let loggedInUser;
 let tasks;
 let users;
 
-async function setTasks(id) {
-  try{
-    let snapshot = await firebase.firestore().collection('tasks').where("author", "==", id).get();
+async function setTasks() {
+  try {
+    let snapshot = await firebase.firestore()
+      .collection('tasks')
+      .where("author", "==", getCurrentUserId())
+      .get();
     tasks = snapshot.docs.map(doc => doc.data()) || [];
-  }catch(error){
+  } catch (error) {
     console.error(error);
   }
 }
 
-function getCurrentUserId(){
+function getCurrentUserId() {
   return firebase.auth().currentUser.uid;
 }
 
-async function setUsers(){
+async function setUsers() {
   try {
-    let snapshot = await firebase.firestore().collection('users').get();
+    let snapshot = await firebase.firestore()
+      .collection('users')
+      .get();
     users = snapshot.docs.map(doc => doc.data()) || [];
   }
   catch (error) {
@@ -70,30 +74,29 @@ function openChooseFileWindow() {
 }
 
 function updatePhotoURL(url, id) {
-  firebase.firestore().collection("users").doc(id).update({ photoURL: url });
+  firebase.firestore()
+    .collection("users")
+    .doc(id)
+    .update({ photoURL: url });
 }
 
 function uploadImg(e) {
   const file = e.target.files[0];
-
-  console.log(e);
   const check = checkFile(file);
-  document.getElementById("img-input").value = null;
+  e.target.value = null;
   if (check.sizeOk && check.typeOk) {
-    console.log("FILE OK");
     const processedFile = processFile(file);
     // upload(e.target.files[0]);
 
   } else {
     if (!check.sizeOk)
-      console.log("SIZE TO LARGE");
+      console.error("SIZE TO LARGE");
     if (!check.typeOk)
-      console.log("FORMAT UNACCEPTED");
+      console.error("FORMAT UNACCEPTED");
   }
 }
 
 function processFile(file) {
-
   const fr = new FileReader();
   const img = new Image();
   fr.onload = function () {

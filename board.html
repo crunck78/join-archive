@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,27 +15,28 @@
     <script src="js/join.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/image-processer.js"></script>
-    <script src="js/board.js"></script> 
+    <script src="js/board.js"></script>
 </head>
-<body onload="init()">
+
+<body onload="handleLoad()">
     <div w3-include-html="templates/navbar.html"></div>
     <div class="main">
         <div id="lists-container" class="board-container">
-            
+
             <!-- <div class="list-card">
                 <span class="list-title">TO DO</span>
                 <div id="list-content" class="list-content">
                    
                 </div>
             </div> -->
-            
+
         </div>
     </div>
     <div id="fixed-elements-container">
         <div id="tasks-list-dialog" onclick="closeDialogByRef(this)" class="dialog">
             <div onclick="event.stopPropagation();" class="dialog-container">
                 <div id="tasks-list">
-                    
+
                 </div>
             </div>
         </div>
@@ -42,10 +44,10 @@
         <div id="feedback-taskcreated" class="feedback-card">
             <span id="feedback-message" class="feedback-message">Task created!</span>
         </div>
-        <img onclick="createList()" id="add-list" src="assets/img/icon plus.png" alt="">
+        <img onclick="handleAddList()" id="add-list" src="assets/img/icon plus.png" alt="">
     </div>
 
-     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
@@ -56,4 +58,5 @@
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
     <script src="js/firebase.js"></script>
 </body>
+
 </html>

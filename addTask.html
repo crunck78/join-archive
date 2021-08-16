@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task</title>
-   
+
     <link rel="stylesheet" href="css/overall.css">
     <link rel="stylesheet" href="css/join.css">
     <link rel="stylesheet" href="css/navbar.css">
@@ -20,7 +20,7 @@
     <script src="js/addTask.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="handleLoad()">
     <div class="nav-bar-holder" w3-include-html="templates/navbar.html"></div>
     <div class="main">
         <div class="main-title">
@@ -68,12 +68,11 @@
                     <div class="addtask-field">
                         <label for="assignes">ASSIGNED TO</label>
                         <div id="assignes-field" name="assignes" class="task-field-data">
-                            <div class="selected-users-container">
-                                <div id="selected-users-list">
-                                    <!-- <img class="border-box-circle selected-user" src="assets/img/profile.png"> -->
-                                </div>
-                                
-                                <img title="Show Members List" id="add-user" onclick="openDialog('members-list-dialog'); showUnselectedMembers();" src="assets/img/icon plus.png" alt="Show Members List">
+                            <div class="selected-members-container">
+                                <div id="selected-members-list"></div>
+                                <img title="Show Members List" id="add-user"
+                                    onclick="openDialog('members-list-dialog'); showUnselectedMembers();"
+                                    src="assets/img/icon plus.png" alt="Show Members List">
                             </div>
                             <div id="submit-container">
                                 <button id="cancel-task">CANCEL</button>
@@ -91,7 +90,7 @@
         <div id="members-list-dialog" onclick="closeDialogByRef(this)" class="dialog">
             <div onclick="event.stopPropagation();" class="dialog-container">
                 <div id="members-list">
-                   
+
                 </div>
             </div>
         </div>
@@ -101,7 +100,7 @@
         </div>
     </div>
 
-      <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
@@ -114,7 +113,7 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" /> -->
     <script src="js/firebase.js"></script>
-    
+
 </body>
 
 </html>
