@@ -13,6 +13,10 @@
     background-color: var(--card-color);
 }
 
+.list-title{
+    cursor: pointer;
+}
+
 .task{
     background-color: white;
     border-radius: 12px;
@@ -81,8 +85,4 @@
     position: fixed;
     bottom: 40px;
     right: 40px;
-}
-
-.dragged{
-    opacity: 0.8;
 }
