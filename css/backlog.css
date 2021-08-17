@@ -14,9 +14,6 @@
     border-radius: 10px;
     background-color: var(--card-color);
     height: var(--task-card-height);
-    /* overflow: hidden; */
-    /* box-sizing: content-box; */
-    /* border-left: 10px solid orange; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -24,21 +21,21 @@
 .assigne-info {
     display: flex;
     align-items: center;
-    /* flex-grow: 1; */
     min-width: 300px;
-    justify-content: space-evenly;
+    max-width: 300px;
+    word-break: break-all;
 }
 
 .section-assigne {
-    /* flex-grow: 1; */
-
-    min-width: calc(300px + 10px + 10px);
+    min-width: calc(300px + 10px + 10px + 10px);
+    max-width: calc(300px + 10px + 10px + 10px);
 }
 
 .task-details {
     width: 45%;
     max-height: 100%;
     overflow-y: clip;
+    min-width: 300px;
 }
 
 .section-details {
@@ -66,14 +63,24 @@
 }
 
 @media (max-width: 600px){
-    .assignment-name-mail{
+    /* .assignment-name-mail{
         display: none;
-    }
+    } */
     .assigne-info{
-        min-width: 100px;
+        min-width: unset;
+        max-width: unset;
     }
 
     .section-assigne{
-        min-width: calc(100px + 10px + 10px);
+       min-width: unset;
+        max-width: unset;
+    }
+
+    .section-details{
+        display: none;
+    }
+
+    .task-details{
+        display: none;
     }
 }

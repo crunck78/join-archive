@@ -94,6 +94,14 @@ body{
     margin-top: 32px;
 }
 
+.ml-10{
+    margin-left: 10px;
+}
+
+.mr-10{
+    margin-right: 10px;
+}
+
 .flex-col{
     display: flex;
     flex-direction: column;
@@ -104,16 +112,6 @@ body{
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-/* @keyframes showfeedback {
-    from{
-        width: 0;
-    }
-
-    to{
-        width: unset;
-    }
-} */
 
 /* width */
 ::-webkit-scrollbar {
@@ -196,6 +194,8 @@ body{
 .hide-desktop{
     display: none;
 }
+
+
 
 @media (max-width: 600px){
     .hide-mobile{

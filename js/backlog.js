@@ -1,44 +1,47 @@
 let assignments = [];
 
-function init() {
-    firebase.auth().onAuthStateChanged(async function (user) {
-        if (user) {
-            // User is signed in.
-            includeHTML();
-            initNavBar(user);
-            await setTasks(user.uid);
-            await setUsers();
-            setAssignments();
-            fillContainer("", "assignments-list", assignments, generateAssignment);
-        } else {
-            // No user is signed in.
-            window.location.assign("index.html");
-        }
-    });
+function handleLoad() {
+    firebase.auth().onAuthStateChanged(handleUserAuthState);
 }
 
-/**
- * this function does this and this
- * @param { string | number | object | Array } param - 
- * @returns - 
- */
-function setAssignments(param) {
+async function handleUserAuthState(user) {
+    if (user) {
+        await initBacklog(user);
+    } else {
+        redirectToStart();
+    }
+}
+
+async function initBacklog(user){
+    includeHTML();
+    initNavBar(user);
+    await refreshBacklog(); 
+}
+
+async function refreshBacklog(){
+    await setTasks();
+    await setUsers();
+    setAssignments();
+    fillContainer("", "assignments-list", assignments, generateAssignmentHTML);
+}
+
+function setAssignments() {
     tasks.forEach(task => {
         task.assignTo.forEach(assignment => {
             const tmpAssigment = users.find( user => user.uid == assignment);
             assignments.push({ user: tmpAssigment, task: task });
         });
     });
-    return "Hall0";
+    return "Hallo";
 }
 
-function generateAssignment(assignment) {
+function generateAssignmentHTML(assignment) {
     return `
     <div class="task-card" style="border-left: 10px solid ${assignment.ref.task.highlight}">
         <div class="assigne-info">
-            <img id="assigne-img" class="border-box-circle" src="${assignment.ref.user.photoURL}" alt="">
-            <div class="flex-col assignment-name-mail">
-                <span id="assigne-name">${assignment.ref.user.displayName}, ${assignment.ref.user.uid}</span>
+            <img id="assigne-img${assignment.ref.user.uid}" class="border-box-circle assigne-img" src="${assignment.ref.user.photoURL || 'assets/img/profile.png'}" alt="${assignment.ref.user.displayName}" title="${assignment.ref.user.email}">
+            <div class="flex-col assignment-name-mail ml-10 mr-10">
+                <span id="assigne-name">${assignment.ref.user.displayName}</span>
                 <a href="mailto: ${assignment.ref.user.email}" id="assigne-mail">${assignment.ref.user.email}</a>
             </div>
         </div>
