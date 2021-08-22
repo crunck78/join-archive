@@ -1,4 +1,4 @@
-<div id="file-processer" class="dialog" onclick="closeDialogByRef(this)">
+<div id="file-processer" class="dialog" onclick="event.preventDefault(); closeDialogByRef(this);">
     <div onclick="event.stopPropagation();" class="dialog-container">
         <div id="processer-container">
             <header class="header">
@@ -6,13 +6,20 @@
                 <span>Adjust the Image</span>
                 <span>Upload</span>
             </header>
-            <!-- <div class="zoom-container"></div> -->
-            <div>
-                <canvas id="processer-cnv-img"></canvas>
-                <canvas id="processer-cnv-avatar"></canvas>
+            <div id="content-container">
+                <div id="zoom-container">
+                    <button onclick="handleZoomIn();">+</button>
+                    <button onclick="handleZoomOut();">-</button>
+                </div>
+                <div id="cnv-container">
+                    <canvas id="processer-cnv-img"></canvas>
+                    <canvas id="processer-cnv-avatar"></canvas>
+                </div>
             </div>
 
-            <footer></footer>
+            <footer>
+                <button onclick="handleCheck();" id="check-btn" >Check</button>
+            </footer>
         </div>
     </div>
 </div>

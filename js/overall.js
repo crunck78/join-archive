@@ -1,6 +1,3 @@
-const MAX_IMG_SIZE = 5000000; //BYTES
-const IMG_TYPES = /\.(jfif|jpg|jpeg|png|gif|JFFIF|JPG|JPEG|PNG|GIF|webp|pdf|PDF)$/;
-
 function showFeedback(id) {
   document.getElementById(id).style.display = "flex";
 }
