@@ -2,79 +2,82 @@ const MAX_IMG_SIZE = 50000000; //BYTES
 const IMG_TYPES = /\.(jfif|jpg|jpeg|png|gif|JFFIF|JPG|JPEG|PNG|GIF|webp|pdf|PDF)$/;
 
 function setCurrentLinkSelected() {
-    const navbarLinks = Array.from(document.getElementById("links-container").childNodes);
-    const current = navbarLinks.find(navbarLink => navbarLink.baseURI == navbarLink.href);
-    if (current)
-      current.classList.add("current-link");
-  }
-  
-  function navbarIncluded() {
-    return document.getElementById("nav-bar");
-  }
+  const navbarLinks = Array.from(document.getElementById("links-container").childNodes);
+  const current = navbarLinks.find(navbarLink => navbarLink.baseURI == navbarLink.href);
+  if (current)
+    current.classList.add("current-link");
+}
 
-  function showContent() {
-    document.getElementById("links-container").classList.remove("d-none");
-    document.getElementById("profile-logout").classList.remove("d-none");
-  }
-  
-  function hideContent() {
-    document.getElementById("links-container").classList.add("d-none");
-    document.getElementById("profile-logout").classList.add("d-none");
-  }
-  
-  function setProfileImg(user) {
-    document.getElementById("profile-img").src = user["photoURL"] || "assets/img/profile.png";
-  }
+function navbarIncluded() {
+  return document.getElementById("nav-bar");
+}
 
-  function initNavBar(user) {
-    let awaitIncludeHTML = setInterval(() => {
-      if (navbarIncluded()) {
-        if (user) {
-          setCurrentLinkSelected();
-          setProfileImg(user);
-          showContent();
-          initIamgeProcesser();
-        } else {
-          hideContent();
-        }
-        clearInterval(awaitIncludeHTML);
-      }
-    }, 100);
-  }
+function showContent() {
+  document.getElementById("links-container").classList.remove("d-none");
+  document.getElementById("profile-logout").classList.remove("d-none");
+}
 
-  function handleInputFile(e) {
-    const file = e.target.files[0];
-    e.target.value = null;
-    const check = checkFile(file);
-    
-    if (check.sizeOk && check.typeOk) {
-      const processedFile = processFile(file);
-      // upload(e.target.files[0]);
-    } else {
-      if (!check.sizeOk)
-        console.error("SIZE TO LARGE");
-      if (!check.typeOk)
-        console.error("FORMAT UNACCEPTED");
+function hideContent() {
+  document.getElementById("links-container").classList.add("d-none");
+  document.getElementById("profile-logout").classList.add("d-none");
+}
+
+function setProfileImg(user) {
+  document.getElementById("profile-img").src = user["photoURL"] || "assets/img/profile.png";
+}
+
+function initNavBar(user) {
+  let awaitIncludeHTML = setInterval(() => {
+    if (navbarIncluded()) {
+      handleNavbarIncluded(user);
+      clearInterval(awaitIncludeHTML);
     }
+  }, 100);
+}
+function handleNavbarIncluded(user) {
+  if (user) {
+    setCurrentLinkSelected();
+    setProfileImg(user);
+    showContent();
+    initImageProcesser();
+  } else {
+    hideContent();
   }
+}
 
-  function checkFile(file) {
-    return {
-      sizeOk: file && file.size < MAX_IMG_SIZE,
-      typeOk: file && file.name.toLowerCase().match(IMG_TYPES)
-    };
+function handleInputFile(e) {
+  const file = e.target.files[0];
+  e.target.value = null;
+  const check = checkFile(file);
+
+  if (check.sizeOk && check.typeOk) {
+    const processedFile = processFile(file);
+    // upload(e.target.files[0]);
+  } else {
+    if (!check.sizeOk)
+      console.error("SIZE TO LARGE");
+    if (!check.typeOk)
+      console.error("FORMAT UNACCEPTED");
   }
+}
 
-  function openChooseFileWindow() {
-    document.getElementById("img-input").click();
-  }
+function checkFile(file) {
+  return {
+    sizeOk: file && file.size < MAX_IMG_SIZE,
+    typeOk: file && file.name.toLowerCase().match(IMG_TYPES)
+  };
+}
 
-  function singOut(){
-    firebase.auth().signOut().then(function() {
-        console.log('Signed Out');
-      }, function(error) {
-        console.error('Sign Out Error', error);
-      });
+function openChooseFileWindow() {
+  document.getElementById("img-input").click();
+}
+
+function singOut() {
+  firebase.auth().signOut().then(function () {
+    console.log('Signed Out');
+  }, function (error) {
+    console.error('Sign Out Error', error);
+  });
 }
 
 function upload(file) {

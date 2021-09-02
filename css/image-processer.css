@@ -1,3 +1,9 @@
+.dialog-container{
+    max-height: unset;
+    border-radius: unset;
+    padding: 1px;
+}
+
 #processer-container{
     color: white;
     max-width: 500px;
@@ -60,6 +66,8 @@
     z-index: 2;
     width: 100%;
     height: 100%;
+
+    background-color: black;
 }
 #processer-container #content-container #cnv-container #processer-cnv-avatar{
     position: absolute;
@@ -70,9 +78,8 @@
 }
 
 @media only screen and (max-width: 700px){
+
     .dialog-container{
-        max-height: unset;
-        border-radius: unset;
         padding: 0;
     }
 
