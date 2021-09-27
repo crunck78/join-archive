@@ -34,6 +34,7 @@ function initNavBar(user) {
     }
   }, 100);
 }
+
 function handleNavbarIncluded(user) {
   if (user) {
     setCurrentLinkSelected();

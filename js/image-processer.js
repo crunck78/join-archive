@@ -4,6 +4,7 @@ let scaleFactor = 1;
 
 let contentContainer;
 
+
 let cnvImg;
 let cnvAvatar;
 let cnvContainer;
@@ -11,17 +12,16 @@ let cnvContainer;
 let ctxImg;
 let ctxAvatar;
 
+let avatarArcRadius = 640;
+
 let fr;
 let img;
 
 let draggingImg = false;
-let translateX = 0;
-let translateY = 0;
+let mouseDown;
 
-let avatarArcRadius = 640;
-
-let lastDrag;
-let mouseDownPos;
+const DISPLACEMENT = { x: 0, y: 0 };
+const LAST_DISPLACEMENT = { x: 0, y: 0 };
 
 function initImageProcesser() {
 
@@ -36,6 +36,7 @@ function initImageProcesser() {
 
   cnvImg = document.getElementById("processer-cnv-img");
   cnvAvatar = document.getElementById("processer-cnv-avatar");
+
   cnvAvatar.addEventListener("mouseup", handleCanvasMouseUp);
   cnvAvatar.addEventListener("mousedown", handleCanvasMouseDown);
   cnvAvatar.addEventListener("mousemove", handleCanvasMouseMove);
@@ -57,45 +58,24 @@ function handleCanvasMouseEnter() {
   cnvAvatar.style.cursor = "move";
 }
 
-function handleCanvasMouseMove(event) {
+function handleCanvasMouseMove(mouseMove) {
   if (draggingImg) {
-    console.log(`Offset: X: [${event.offsetX},${event.offsetY}] :Y`);
-    if (isDraggingRight()) { translateX += 0.5; }
-    if (isDraggingLeft()) { translateX -= 0.5; }
-    if (isDraggingDown()) { translateY += 0.5; }
-    if (isDraggingUp()) { translateY -= 0.5; }
+    DISPLACEMENT.x = mouseMove.pageX - mouseDown.x;
+    DISPLACEMENT.y = mouseMove.pageY - mouseDown.y;
+    
     drawImage();
   }
 }
 
-function isDraggingUp(){
-
-}
-
-function isDraggingDown(){
-
-}
-
-function isDraggingLeft(){
-
-}
-
-function isDraggingRight(){
-
-}
-
 function handleCanvasMouseUp(event) {
-  event.preventDefault();
- 
- 
   draggingImg = false;
-  console.log(event);
+  LAST_DISPLACEMENT.x += DISPLACEMENT.x;
+  LAST_DISPLACEMENT.y += DISPLACEMENT.y;
 }
 
 function handleCanvasMouseDown(event) {
-  event.preventDefault();
   draggingImg = true;
-  console.log(event);
+  mouseDown = { x: event.pageX, y: event.pageY };
 }
 
 function handleFileReaderLoad() {
@@ -174,7 +154,6 @@ function setForMobile() {
     cnvContainer.style.height = `${heightScale}px`;
     cnvContainer.style.top = `${topPosition}px`;
   }
-  console.log(avatarArcRadius);
 }
 
 function drawImgAndAvatar() {
@@ -189,9 +168,9 @@ function drawImage() {
   ctxImg.clearRect(0, 0, cnvImg.width, cnvImg.height);
 
   ctxImg.save();
-  ctxImg.translate(halfWidth + translateX, halfHeight + translateY);
+  ctxImg.translate(halfWidth, halfHeight);
   ctxImg.scale(scaleFactor, scaleFactor);
-  ctxImg.drawImage(img, -halfWidth, -halfHeight, cnvImg.width, cnvImg.height);
+  ctxImg.drawImage(img, -halfWidth + LAST_DISPLACEMENT.x + DISPLACEMENT.x, -halfHeight + LAST_DISPLACEMENT.y + DISPLACEMENT.y, cnvImg.width, cnvImg.height);
   ctxImg.restore();
 }
 
@@ -216,8 +195,8 @@ function setAvatarCircleRadius() {
   let cnvContainerStyleWidth = parseFloat(cnvContainer.style.width.replace("px", ""));
 
   let scaledArcRadius = contentArcRadius * cnvAvatar.width / cnvContainerStyleWidth;
-
   avatarArcRadius = scaledArcRadius;
+  console.log(avatarArcRadius);
 }
 
 function drawAvatarBackground() {
@@ -227,14 +206,11 @@ function drawAvatarBackground() {
 }
 
 function handleZoomIn() {
-  console.log("Handle Zoom In");
-
   scaleFactor += ZOOM_FACTOR;
   drawImage();
 }
 
 function handleZoomOut() {
-  console.log("Handle Zoom Out");
   scaleFactor -= ZOOM_FACTOR;
   drawImage();
 }
@@ -288,9 +264,22 @@ function getRatio(width, height) {
   return width / height;
 }
 
-function handleProccesserClose(dialogRef) {
+function handleProccesserClose(event) {
   if (!draggingImg) {
     scaleFactor = 1;
-    closeDialogByRef(dialogRef);
+    closeDialogByRef(event.target);
+  }else{
+    draggingImg = false;
   }
+}
+
+function fullView(path) {
+  document.getElementById('ImageContainer').classList.remove('d-none');
+  document.body.style = 'overflow: hidden';
+  document.getElementById('FullView').src = path;
+}
+
+function CloseFullView() {
+  document.getElementById('ImageContainer').classList.add('d-none');
+  document.body.style = 'overflow: unset';
 }
