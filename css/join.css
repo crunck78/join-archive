@@ -35,6 +35,8 @@ body{
     flex-direction: column;
     justify-content: flex-start;
     z-index: -1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .main-title{
@@ -110,8 +112,8 @@ body{
 
 .addtask-container, .backlog-container, .board-container, .help-container{
     /* flex-grow: 1; */
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
 }
 
 /* width */
@@ -159,15 +161,14 @@ body{
     height: 40px;
     max-width: 300px;
     background-color: var(--card-color);
-
     margin-top: 10px;
     margin-bottom: 10px;
-
     padding: 24px;
-
     border-radius: 12px;
-
     border: 1px solid gray;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .member-info:hover{

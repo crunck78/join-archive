@@ -95,9 +95,8 @@ function showUnselectedMembers() {
 }
 
 function generateMemberHTML(member) {
-    return `
+    return `<!--html-->
     <div title="${member.ref.uid}" onclick='closeDialogById("members-list-dialog"); insertMember(${JSON.stringify(member.ref.uid)})' class="member-info">
-        
         <img class="border-box-circle" src="${member.ref.photoURL || 'assets/img/profile.png'}" alt="">
         <div class="flex-col">
             <span id="assigne-name">${member.ref.displayName}</span>

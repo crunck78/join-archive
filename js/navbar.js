@@ -23,6 +23,7 @@ function hideContent() {
 }
 
 function handleNavOpener(mainLinksContainer){
+  //TODO CHANGE METHODE
   mainLinksContainer.classList.toggle("d-flex");
 }
 

@@ -1,7 +1,7 @@
 .dialog-container{
-    max-height: unset;
+    /* max-height: unset;
     border-radius: unset;
-    padding: 1px;
+    padding: 1px; */
 }
 
 #processer-container{
@@ -79,9 +79,9 @@
 
 @media only screen and (max-width: 700px){
 
-    .dialog-container{
+    /* .dialog-container{
         padding: 0;
-    }
+    } */
 
     #processer-container{
 
