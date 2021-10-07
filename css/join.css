@@ -34,6 +34,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    z-index: -1;
 }
 
 .main-title{
@@ -199,7 +200,7 @@ body{
 
 @media (max-width: 600px){
     .hide-mobile{
-        display: none !important;
+        display: none;
     }
     
     .hide-desktop{

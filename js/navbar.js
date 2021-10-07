@@ -22,6 +22,10 @@ function hideContent() {
   document.getElementById("profile-logout").classList.add("d-none");
 }
 
+function handleNavOpener(mainLinksContainer){
+  mainLinksContainer.classList.toggle("d-flex");
+}
+
 function setProfileImg(user) {
   document.getElementById("profile-img").src = user["photoURL"] || "assets/img/profile.png";
 }

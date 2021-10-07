@@ -129,3 +129,4 @@ function removeMember(selectedMemberIndex) {
     selectedMembers.splice(selectedMemberIndex, 1);
     fillContainer("", "selected-members-list", selectedMembers, generateSelectedMemberHTML);
 }
+

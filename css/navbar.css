@@ -46,6 +46,9 @@ nav {
     object-fit: contain;
 } */
 
+.mobile-nav-opener{
+    cursor: pointer;
+}
 @media (min-width: 1000px) {
     .desktop-nav {
         height: 100vh;
@@ -136,11 +139,13 @@ nav {
 @media (max-width: 600px){
     .links-container{
         flex-direction: column;
+       padding: var(--navbar-padding-mobile);
     }
 
     .links-container a{
         padding-left: 4px;
         border-left: 4px solid transparent;
+        margin: 4px 0;
     }
 
     .current-link{
@@ -149,7 +154,14 @@ nav {
     }
 
     .main-links-container{
+        display: none;
         align-items: unset;
+        flex-direction: column;
+        position: absolute;
+        top: var(--navbar-size-mobile);
+        left: 0;
+        background-color: var(--main-color);
+       padding-top: var(--navbar-padding-mobile);
     }
 }
 

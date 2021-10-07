@@ -2,11 +2,15 @@
     display: none !important;
 }
 
+.d-flex{
+    display: flex !important;
+}
+
 .fixed-elements-container{
 
 }
 
-.vissibility-none{
+.visibility-none{
     visibility: none;
 }
 
