@@ -25,6 +25,11 @@
     border: var(--fields-border-style);
 }
 
+.task:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
 @media (min-width: 1000px) {
     
 }
@@ -48,7 +53,7 @@
     justify-content: flex-start;
     height: 100%;
     position: relative;
-    margin-bottom: 80px;
+    /* margin-bottom: 80px; */
 }
 
 .list-card{

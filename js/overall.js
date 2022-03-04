@@ -6,8 +6,11 @@ function hideFeedback(id) {
   document.getElementById(id).style.display = "none";
 }
 
-function openDialog(id) {
+function openDialog(id, callback) {
   document.getElementById(id).style.display = "flex";
+  if(callback && typeof callback === 'function'){
+    callback();
+  }
 }
 
 function closeDialogByRef(ref) {
@@ -18,13 +21,17 @@ function closeDialogById(id) {
   document.getElementById(id).style.display = "none";
 }
 
-function fillContainer(title = "", id, array, toGenerate, data) {
+function fillContainer(title = "", id, array, toGenerate, data, emptyContainer) {
   const container = document.getElementById(id);
   container.innerHTML = title;
   if (array.length > 0)
     array.forEach((elem, index) => container.insertAdjacentHTML("beforeend", toGenerate({ ref: elem, index: index, data: data })));
   else {
-    container.innerHTML = `<div class="empty-container"></div>`;
+    container.innerHTML = `<!--html-->
+      <div class="empty-container">
+        ${emptyContainer || ''}
+      </div>
+      `;
   }
 }
 

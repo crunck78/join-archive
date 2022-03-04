@@ -16,7 +16,7 @@
         <input id="img-input" oninput="handleInputFile(event)" type="file" accept="image/png, image/gif, image/jpeg" hidden />
         <img onclick="openChooseFileWindow()" id="profile-img" class="border-box-circle border-box-white"
             src="assets/img/profile.png" alt="">
-        <button onclick="singOut()" id="logout-btn">LOG OUT</button>
+        <button onclick="handleSingOut()" id="logout-btn">LOG OUT</button>
     </div>
 </nav>
 <div class="holder" w3-include-html="templates/image-processer.html"></div>

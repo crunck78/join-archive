@@ -85,6 +85,15 @@ body{
     }
 }
 
+@media (max-height: 335px) and (max-width: 1000px){
+    /* .main{
+        left: 0;
+        padding: var(--navbar-padding-mobile);
+        height: 100vh;
+        top: 0;
+    } */
+}
+
 .text-main{
     color: var(--main-color);
 }

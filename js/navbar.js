@@ -23,7 +23,7 @@ function hideContent() {
 }
 
 function handleNavOpener(mainLinksContainer){
-  //TODO CHANGE METHODE
+  //TODO CHANGE METHOD
   mainLinksContainer.classList.toggle("d-flex");
 }
 
@@ -37,7 +37,7 @@ function initNavBar(user) {
       handleNavbarIncluded(user);
       clearInterval(awaitIncludeHTML);
     }
-  }, 100);
+  }, 60);
 }
 
 function handleNavbarIncluded(user) {
@@ -78,7 +78,10 @@ function openChooseFileWindow() {
   document.getElementById("img-input").click();
 }
 
-function singOut() {
+function handleSingOut() {
+  //TODO Delete Anonymous User From Firestore and Auth, delete lists and tasks
+  const user = firebase.auth().currentUser;
+  
   firebase.auth().signOut().then(function () {
     console.log('Signed Out');
   }, function (error) {

@@ -30,7 +30,7 @@ async function setTasksAndLists() {
 }
 
 async function handleAddList() {
-    let newListRef = firebase.firestore().collection("lists").doc();
+    let newListRef = firebase.firestore().collection('users').doc(getCurrentUserId()).collection("lists").doc();
     let newList = createList(newListRef.id);
     await newListRef.set(newList);
     await refreshLists();
@@ -54,8 +54,9 @@ async function refreshLists() {
 async function setLists() {
     try {
         let snapshot = await firebase.firestore()
+            .collection('users')
+            .doc(getCurrentUserId())
             .collection('lists')
-            .where("author", "==", getCurrentUserId())
             .orderBy("created")
             .get();
         lists = snapshot.docs.map(doc => doc.data()) || [];
@@ -65,10 +66,10 @@ async function setLists() {
 }
 
 function generateListHTML(list) {
-    return `
+    return `<!--html-->
     <div id="list-${list.ref.uid}" class="list-card" 
         ondrop='handleDragDrop(event, "${list.ref.uid}")'
-        ondragover="handleDragOver(event)"
+        ondragover="handleDragOver(event)">
         <input id="list-title-input${list.ref.uid}" class="${getTitleInputDisplay(list.ref.title)}"
                 onfocusout='setListTitle(event, this, "${list.ref.uid}")' 
                 onchange='setListTitle(event, this, "${list.ref.uid}")' value="${list.ref.title}" placeholder="Enter List Title">
@@ -77,11 +78,21 @@ function generateListHTML(list) {
             <div id="tasks-container${list.ref.uid}">
                 
             </div>
-            <div onclick='openDialog("tasks-list-dialog"); selectTaskDialog("${list.ref.uid}")' class="">+ Add a Task </div>
+            <div onclick='handleAddTaskOpener("${list.ref.uid}")' class="">+ Add a Task </div>
         </div>
         <img onclick='handleListRemove("${list.ref.uid}")' class="remove-selected" src="assets/img/minus-5-48.png">
     </div>
     `;
+}
+
+function handleAddTaskOpener(listId){
+    const unlisted = tasks.filter(task => task.currentList == "" && task.listed == false);
+    if(unlisted.length == 0){
+        window.location.href = `addTask.html?redirect=board.html&addNewTaskTo=${listId}`;
+    }else{
+        openDialog("tasks-list-dialog");
+        selectTaskDialog(listId);
+    }
 }
 
 function getTitleInputDisplay(title) {
@@ -107,6 +118,8 @@ async function setListTitle(event, inputRef, listId) {
 
 async function updateListTitle(listId, newTitle) {
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("lists")
         .doc(listId)
         .update({ title: newTitle });
@@ -123,8 +136,7 @@ function selectTaskDialog(listId) {
 }
 
 function generateSelectTasksHTML(task) {
-    return `
-    <!-- ${task.ref.uid} -->
+    return `<!--html-->
     <div onclick='closeDialogById("tasks-list-dialog"); handleAddTask("${task.ref.uid}", "${task.data}")' class="member-info">
         ${task.ref.title}
     </div>
@@ -139,6 +151,8 @@ async function handleAddTask(taskId, listId) {
 
 async function addTaskIdToList(taskId, listId) {
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("lists")
         .doc(listId)
         .update({
@@ -148,6 +162,8 @@ async function addTaskIdToList(taskId, listId) {
 
 async function markTaskAsListed(taskId, listId) {
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("tasks")
         .doc(taskId)
         .update({
@@ -162,9 +178,9 @@ async function refreshList(listId) {
 }
 
 function generateTaskHTML(task) {
-    return `
+    return `<!--html-->
     <div id="task-${task.ref.uid}" class="task" draggable="true"
-        ondragstart='handleDragStart(event, "${task.ref.uid}")'
+        ondragstart='handleDragStart(event, "${task.ref.uid}")'>
         <div>
             <span class="task-name">${task.ref.title}</span>
             <span class="task-name">${task.ref.uid}</span>
@@ -194,6 +210,8 @@ async function handleDragDrop(event, listId) {
 
 async function transferTaskToList(listId) {
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("lists")
         .doc(draggedTask.currentList)
         .update({
@@ -201,12 +219,16 @@ async function transferTaskToList(listId) {
         });
 
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("lists")
         .doc(listId)
         .update({
             tasks: firebase.firestore.FieldValue.arrayUnion(draggedTask.uid)
         });
     await firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
         .collection("tasks")
         .doc(draggedTask.uid)
         .update({
@@ -215,12 +237,15 @@ async function transferTaskToList(listId) {
 }
 
 function generateTaskAssigmentsHTML(assignment) {
-    return `<img class="assignment-img" src="${assignment.ref.photoURL || 'assets/img/profile.png'}">`;
+    return `<!--html-->
+    <img class="assignment-img" src="${assignment.ref.photoURL || 'assets/img/profile.png'}">
+    `;
 }
 
 async function handleListRemove(listId) {
     await removeTasksFromList(listId);
-    await firebase.firestore().collection("lists").doc(listId).delete();
+    await firebase.firestore().collection("users")
+        .doc(getCurrentUserId()).collection("lists").doc(listId).delete();
     await refreshBoard();
 }
 
@@ -229,6 +254,8 @@ async function removeTasksFromList(listId) {
     for (let i = 0; i < listToRemoveTickets.length; i++) {
         const ticket = listToRemoveTickets[i];
         await firebase.firestore()
+            .collection("users")
+            .doc(getCurrentUserId())
             .collection("tasks")
             .doc(ticket.uid)
             .update({ listed: false, currentList: "" });

@@ -1,5 +1,10 @@
+//Query Params from url and redirect to board and update list
+
 let selectedMembers = [];
 
+/**
+ * 
+ */
 function handleLoad() {
     firebase.auth().onAuthStateChanged(handleUserAuthState);
 }
@@ -17,6 +22,7 @@ async function initAddTask(user) {
     initNavBar(user);
     setCalendarMinDateToday();
     await setUsers();
+    updateAddTask();
 }
 
 function setCalendarMinDateToday() {
@@ -30,6 +36,22 @@ function setCalendarMinDateToday() {
     console.log("Today", today);
     document.getElementById("date-field").setAttribute("min", today);
 }
+
+/**
+ * Updates the Add Task HTML View
+ */
+ function updateAddTask(){
+    updateAssignedToView();
+}
+
+function updateAssignedToView(){
+    if(users.length == selectedMembers.length){
+        document.getElementById("add-user").classList.add("d-none");
+    }else{
+        document.getElementById("add-user").classList.remove("d-none"); 
+    }
+}
+
 
 function getHighlight(urgency) {
     switch (urgency) {
@@ -62,21 +84,35 @@ function createTask(data, id) {
         assignTo: selectedMembers.map((selectedMember) => selectedMember.uid),
         highlight: getHighlight(data.urgency),
         currentList: "",
-        uid: id
+        uid: id,
+        active: false
     };
 }
 
+/**
+ * 
+ * @param {SubmitEvent} event 
+ */
 async function handleSubmit(event) {
-    event.preventDefault();
+    console.log(event);
+    event.preventDefault(); //
     let formData = getFormTaskData(event.target);
-    let newTaskRef = firebase.firestore().collection("tasks").doc();
+    let newTaskRef = getNewTaskRef();
     let newTask = createTask(formData, newTaskRef.id);
     await newTaskRef.set(newTask);
     await setTasks(getCurrentUserId());
     selectedMembers = [];
     fillContainer("", "selected-members-list", selectedMembers, generateSelectedMemberHTML);
     showTaskCreatedFeedback();
+    updateAssignedToView();
     event.target.reset();
+}
+
+function getNewTaskRef() {
+    return firebase.firestore()
+        .collection("users")
+        .doc(getCurrentUserId())
+        .collection("tasks").doc();
 }
 
 function showTaskCreatedFeedback() {
@@ -86,17 +122,20 @@ function showTaskCreatedFeedback() {
 }
 
 function showUnselectedMembers() {
-    let unselectedMembers = users.filter((user) => {
+    fillContainer("Select A Member", "members-list", getUnselectedMembers(), generateMemberHTML);
+}
+
+function getUnselectedMembers(){
+    return users.filter((user) => {
         return !selectedMembers.some((selectedMember) => {
             return user.uid === selectedMember.uid;          // assumes unique id
         });
     });
-    fillContainer("Select A Member", "members-list", unselectedMembers, generateMemberHTML);
 }
 
 function generateMemberHTML(member) {
     return `<!--html-->
-    <div title="${member.ref.uid}" onclick='closeDialogById("members-list-dialog"); insertMember(${JSON.stringify(member.ref.uid)})' class="member-info">
+    <div title="${member.ref.uid}" onclick='handleMemberSelection(${JSON.stringify(member.ref.uid)})' class="member-info">
         <img class="border-box-circle" src="${member.ref.photoURL || 'assets/img/profile.png'}" alt="">
         <div class="flex-col">
             <span id="assigne-name">${member.ref.displayName}</span>
@@ -104,6 +143,12 @@ function generateMemberHTML(member) {
         </div>
     </div>
     `;
+}
+
+function handleMemberSelection(memberUid){
+    closeDialogById("members-list-dialog");
+    insertMember(memberUid);
+    updateAssignedToView();
 }
 
 function insertMember(memberId) {
@@ -114,14 +159,30 @@ function insertMember(memberId) {
     }
 }
 
+/**
+ * @returns HTML string placeholder
+ */
+ function generateNoMembersHTML() {
+    return `<!--html-->
+        <div>
+            
+        </div>
+    `;
+
+}
+
 function generateSelectedMemberHTML(selectedMember) {
-    return `
-   <!-- ${selectedMember.ref.uid} -->
+    return `<!--html-->
     <div style="position: relative">
-        <img onclick='removeMember(${selectedMember.index})' class="remove-selected" src="assets/img/minus-5-48.png">
+        <img onclick='handleMemberRemove(${selectedMember.index})' class="remove-selected" src="assets/img/minus-5-48.png">
         <img title="${selectedMember.ref.displayName}" class="border-box-circle selected-user" src="${selectedMember.ref.photoURL || 'assets/img/profile.png'}">
     </div>
     `;
+}
+
+function handleMemberRemove(selectedMemberIndex){
+    removeMember(selectedMemberIndex);
+    updateAssignedToView();
 }
 
 function removeMember(selectedMemberIndex) {
@@ -129,3 +190,6 @@ function removeMember(selectedMemberIndex) {
     fillContainer("", "selected-members-list", selectedMembers, generateSelectedMemberHTML);
 }
 
+function handleAddMember() {
+    openDialog('members-list-dialog', showUnselectedMembers);
+}
