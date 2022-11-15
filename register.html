@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="css/overall.css">
+    <link rel="stylesheet" href="css/join.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/image-processer.css">
+    <link rel="stylesheet" href="css/register.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
+    <script src="js/overall.js"></script>
+    <script src="js/join.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/image-processer.js"></script>
+    <script src="js/register.js"></script>
+</head>
+
+<body onload="handleLoad()">
+    <div class="nav-bar-holder" w3-include-html="templates/navbar.html">
+
+    </div>
+    <div class="main">
+        <div class="main-title">
+            <h1 class="title">Register</h1>
+            <span class="untertitle text-main">Learning Management System Project</span>
+        </div>
+        <div class="register-container">
+            <form id="register-task-form" onsubmit="handleSubmit(event);" action="">
+
+                <div class="register-section">
+                    <div class="register-field">
+                        <label for="username">USERNAME</label>
+                        <input id="username-field" name="username" type="text" class="task-field-data" required>
+                    </div>
+
+                    <div class="register-field">
+                        <label for="password">PASSWORD</label>
+                        <input name="password" id="password-field" type="password" class="task-field-data" required>
+                    </div>
+
+                    <div class="register-field">
+                        <label for="confirmpassword">CONFIRM PASSWORD</label>
+                        <input name="confirmpassword" id="confirmpassword-field" type="password" class="task-field-data" required>
+                    </div>
+
+                    <div class="register-field">
+                        <div id="submit-container">
+                            <button id="login-btn">LOGIN</button>
+                            <button type="submit" id="register-btn">REGISTER</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="register-section">
+                    
+                </div> -->
+            </form>
+        </div>
+
+    </div>
+    <div id="fixed-elements-container">
+        <!-- <div id="members-list-dialog" onclick="closeDialogByRef(this)" class="dialog">
+            <div id="dialog-container" onclick="event.stopPropagation();" class="dialog-container">
+                <div id="members-list">
+
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div id="feedback-taskcreated" class="feedback-card">
+            <span id="feedback-message" class="feedback-message">Task created!</span>
+        </div> -->
+    </div>
+
+</body>
+
+</html>

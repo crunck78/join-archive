@@ -1,5 +1,7 @@
-let tasks;
-let users;
+const API = "http://127.0.0.1:8000/api";
+
+let tasks = [];
+let users = [];
 
 /**
  * 
@@ -74,12 +76,12 @@ async function deleteUserJoinProfile() {
 
 async function setTasks() {
   try {
-    let snapshot = await firebase.firestore()
-      .collection('users')
-      .doc(getCurrentUserId())
-      .collection('tasks')
-      .get();
-    tasks = snapshot.docs.map(doc => doc.data()) || [];
+    // let snapshot = await firebase.firestore()
+    //   .collection('users')
+    //   .doc(getCurrentUserId())
+    //   .collection('tasks')
+    //   .get();
+    // tasks = snapshot.docs.map(doc => doc.data()) || [];
   } catch (error) {
     console.error(error);
   }
@@ -89,12 +91,19 @@ function getCurrentUserId() {
   return firebase.auth().currentUser?.uid || null;
 }
 
+function getNewTaskRef() {
+  return firebase.firestore()
+      .collection("users")
+      .doc(getCurrentUserId())
+      .collection("tasks").doc();
+}
+
 async function setUsers() {
   try {
-    let snapshot = await firebase.firestore()
-      .collection('users')
-      .get();
-    users = snapshot.docs.map(doc => doc.data()) || [];
+    // let snapshot = await firebase.firestore()
+    //   .collection('users')
+    //   .get();
+    // users = snapshot.docs.map(doc => doc.data()) || [];
   }
   catch (error) {
     console.error(error);
@@ -107,8 +116,8 @@ function redirectToStart() {
 }
 
 async function updatePhotoURL(url, id) {
-  await firebase.firestore()
-    .collection("users")
-    .doc(id)
-    .update({ photoURL: url });
+  // await firebase.firestore()
+  //   .collection("users")
+  //   .doc(id)
+  //   .update({ photoURL: url });
 }

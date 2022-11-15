@@ -1,13 +1,10 @@
-//Query Params from url and redirect to board and update list
-
 let selectedMembers = [];
 
-/**
- * 
- */
 function handleLoad() {
-    firebase.auth().onAuthStateChanged(handleUserAuthState);
+    //firebase.auth().onAuthStateChanged(handleUserAuthState);
+    handleUserAuthState(true);
 }
+
 
 async function handleUserAuthState(user) {
     if (user) {
@@ -21,7 +18,7 @@ async function initAddTask(user) {
     includeHTML();
     initNavBar(user);
     setCalendarMinDateToday();
-    await setUsers();
+    //await setUsers();
     updateAddTask();
 }
 
@@ -74,45 +71,45 @@ function getFormTaskData(form) {
 
 function createTask(data, id) {
     return {
-        author: getCurrentUserId(),
-        listed: false,
+        //author: getCurrentUserId(),
+        //listed: false,
         title: data.title,
         category: data.category,
         description: data.description,
-        duedate: data.date,
+        due_date: data.date,
         urgency: data.urgency,
-        assignTo: selectedMembers.map((selectedMember) => selectedMember.uid),
-        highlight: getHighlight(data.urgency),
-        currentList: "",
-        uid: id,
-        active: false
+        //assignTo: selectedMembers.map((selectedMember) => selectedMember.uid),
+        //highlight: getHighlight(data.urgency),
+        //currentList: "",
+        //uid: id,
+        //active: false
     };
 }
 
 /**
- * 
+ *
  * @param {SubmitEvent} event 
  */
 async function handleSubmit(event) {
     console.log(event);
-    event.preventDefault(); //
-    let formData = getFormTaskData(event.target);
-    let newTaskRef = getNewTaskRef();
-    let newTask = createTask(formData, newTaskRef.id);
-    await newTaskRef.set(newTask);
-    await setTasks(getCurrentUserId());
+    event.preventDefault(); 
+    const formData = new FormData(event.target);
+    formData.append('assigneTo', selectedMembers.map((selectedMember) => selectedMember.uid))
+    const response = await fetch(`${API}/tasks/`, {
+        method: 'post',
+        body: formData
+    });
+
+    // let newTaskRef = getNewTaskRef();
+    // let newTask = createTask(formData, newTaskRef.id);
+    // await newTaskRef.set(newTask);
+    // await setTasks(getCurrentUserId());
+    
     selectedMembers = [];
     fillContainer("", "selected-members-list", selectedMembers, generateSelectedMemberHTML);
     showTaskCreatedFeedback();
     updateAssignedToView();
     event.target.reset();
-}
-
-function getNewTaskRef() {
-    return firebase.firestore()
-        .collection("users")
-        .doc(getCurrentUserId())
-        .collection("tasks").doc();
 }
 
 function showTaskCreatedFeedback() {

@@ -119,7 +119,7 @@ body{
     flex-direction: column;
 }
 
-.addtask-container, .backlog-container, .board-container, .help-container{
+.addtask-container, .backlog-container, .board-container, .help-container, .login-container{
     /* flex-grow: 1; */
     /* overflow-y: auto;
     overflow-x: hidden; */
